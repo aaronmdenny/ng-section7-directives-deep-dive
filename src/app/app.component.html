@@ -6,9 +6,28 @@
         (click)="onlyOdd = !onlyOdd">Only show odd numbers</button>
       <br><br>
       <ul class="list-group">
-        <li
-          class="list-group-item">
-        </li>
+        <!--
+          Note that we cannot use two structural directives on the same element. So, for the <li> below, we cannot use
+          *ngFor to iterate through the numbers and then use *ngIf to check for an odd number. It is possible to use
+          pipes to filter an array.
+
+          A solution, demonstrated here, is to wrap the <li> elements inside of a <div> where the <div> holds the *ngIf.
+          This requires us to create two arrays in the .ts file.
+        -->
+        <div *ngIf="onlyOdd">
+          <li
+            *ngFor="let oddNumber of oddNumbers"
+            class="list-group-item">
+            {{ oddNumber }}
+          </li>
+        </div>
+        <div *ngIf="!onlyOdd">
+          <li
+            *ngFor="let evenNumber of evenNumbers"
+            class="list-group-item">
+            {{ evenNumber }}
+          </li>
+        </div>
       </ul>
       <ng-template [ngIf]="onlyOdd">
         <p>Only odd</p>
