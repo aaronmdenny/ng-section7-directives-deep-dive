@@ -15,16 +15,40 @@
           This requires us to create two arrays in the .ts file.
         -->
         <div *ngIf="onlyOdd">
+          <!--
+            Recall, the square brackets around ngClass indicate we are binding to a property of the ngClass directive
+            (which also happens to be named ngClass). Similarly, the ngStyle directive has a property with the name
+            ngStyle that we bind to.
+
+            The modulus checks in ngClass and ngStyle are redundant here, since we know we are dealing with odd numbers.
+            They are included for illustrative purposes.
+          -->
           <li
             *ngFor="let oddNumber of oddNumbers"
-            class="list-group-item">
+            class="list-group-item"
+            [ngClass]="{
+              odd: oddNumber % 2 !== 0
+            }"
+            [ngStyle]="{
+              backgroundColor: oddNumber % 2 !== 0 ? 'yellow' : 'transparent'
+            }">
             {{ oddNumber }}
           </li>
         </div>
         <div *ngIf="!onlyOdd">
+          <!--
+            The usage of [ngClass] and [ngStyle] are redundant here, since we know we are dealing with even numbers, but
+            they are used for illustrative purposes.
+          -->
           <li
             *ngFor="let evenNumber of evenNumbers"
-            class="list-group-item">
+            class="list-group-item"
+            [ngClass]="{
+              odd: evenNumber % 2 !== 0
+            }"
+            [ngStyle]="{
+              backgroundColor: evenNumber % 2 !== 0 ? 'yellow' : 'transparent'
+            }">
             {{ evenNumber }}
           </li>
         </div>
