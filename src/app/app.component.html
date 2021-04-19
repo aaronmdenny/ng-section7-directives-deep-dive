@@ -53,6 +53,19 @@
           </li>
         </div>
       </ul>
+      <!--
+        We do not use brackets because we are not binding to a property of the directive. We are simply using the
+        directive. We specified that we use this directive like an HTML attribute by setting the selector like this:
+
+        selector: '[appBasicHighlight]'
+
+        The square brackets indicate to specify this directive like an HTML attribute, but we do not use square brackets
+        when using the directive unless we are binding to a property of the directive (which can have the same name as
+        the directive itself, covered later).
+      -->
+      <p appBasicHighlight>
+        Styled with the basic-highlight directive.
+      </p>
       <ng-template [ngIf]="onlyOdd">
         <p>Only odd</p>
       </ng-template>
