@@ -26,6 +26,8 @@ export class BetterHighlightDirective implements OnInit {
      * So, if you try to manipulate the DOM as we did in 'basic-highlight', by directly accessing the native element,
      * you might get an error in some circumstances. You will probably not encounter this, and if your app is not going
      * to run in the browser, you would certainly be aware of that, but it is better to cover this case.
+     * 
+     * Learn more about the renderer here: https://angular.io/api/core/Renderer2
      */
     this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'blue');
   }
