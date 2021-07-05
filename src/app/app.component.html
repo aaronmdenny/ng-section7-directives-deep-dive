@@ -66,7 +66,32 @@
       <p appBasicHighlight>
         Styled with the basic-highlight directive.
       </p>
-      <p appBetterHighlight>
+      <!--
+        The property binding we use on our appBetterHighlight directive takes in a string. The values between the double
+        quotations must be some typescript code that evaluates to a string, so we enclose the argument in single quotes.
+
+        When we have property binding with a string, you have the option to omit the square brackets and single
+        quotations. So, the defaultColor property binding below could be rewritten as:
+
+          defaultColor="yellow"
+
+        When you do this, it is less obvious that you are doing property binding, but it is an option. It should only be
+        done if it is obvious that you are using property binding and not some HTML attribute.
+
+        Angular is able to figure out that we want to bind to our directive, rather than some existing HTML attribute.
+
+        Recall with ngClass and ngStyle, the directive itself is enclosed in square brackets. This is typical when you
+        only have one property to bind (or one main property). This is accomplished by providing an alias in the desired
+        @Input decorator inside of the directive that matches the name of the selector of the directive.
+
+        Below, [appBetterHighlight]="'red'" establishes the use of the appBetterHighlight directive on the p element,
+        and also assigns 'red' to the highlightColor property inside of the appBetterHighlight directive.
+
+        [defaultColor] is a property of the appBetterHighlight directive that we bind 'yellow' to.
+      -->
+      <p
+        [appBetterHighlight]="'red'"
+        [defaultColor]="'yellow'">
         Styled with the better-highlight directive.
       </p>
       <ng-template [ngIf]="onlyOdd">

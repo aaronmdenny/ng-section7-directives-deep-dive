@@ -3,6 +3,7 @@ import {
   ElementRef,
   HostBinding,
   HostListener,
+  Input,
   OnInit,
   Renderer2
 } from '@angular/core';
@@ -11,6 +12,21 @@ import {
   selector: '[appBetterHighlight]'
 })
 export class BetterHighlightDirective implements OnInit {
+  /**
+   * We can use property or event binding in our custom directives, though in practice, you will not use event binding
+   * often.
+   * 
+   * This allows us to pass in values for the directive to use.
+   * 
+   * We set default values, but give users of this directive the option to change them from the outside.
+   */
+  @Input() defaultColor: string = 'transparent';
+  /**
+   * We create an alias that matches the selector of this directive to allow the user of the directive to use the
+   * directive and property bind to the main property all at once.
+   */
+  @Input('appBetterHighlight') highlightColor: string = 'blue';
+  
   /**
    * @HostListener() is fine for what we are doing, but there is another decorator we can use that allows us to not use
    * the renderer. There is nothing wrong with using the renderer here, but there is an even easier way of changing the
@@ -33,7 +49,7 @@ export class BetterHighlightDirective implements OnInit {
    * 
    * With @HostBinding(), you can bind to any property of the element the directive sits on.
    */
-  @HostBinding('style.backgroundColor') backgroundColor: string = 'transparent';
+  @HostBinding('style.backgroundColor') backgroundColor: string = this.defaultColor;
 
 /**
  * The renderer instance of Renderer2 is the better tool to use to manipulate DOM elements (as opposed to an instance of
@@ -68,6 +84,9 @@ export class BetterHighlightDirective implements OnInit {
      * @HostListener() decorator.
      */
     //this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'blue');
+
+    // Set the default color to what is passed in via property binding.
+    this.backgroundColor = this.defaultColor;
   }
 
   /**
@@ -80,11 +99,11 @@ export class BetterHighlightDirective implements OnInit {
    */
   @HostListener('mouseenter') mouseover(eventData: Event) {
     //this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'blue');
-    this.backgroundColor = 'blue';
+    this.backgroundColor = this.highlightColor;
   }
 
   @HostListener('mouseleave') mouseleave(eventData: Event) {
     //this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'transparent');
-    this.backgroundColor = 'transparent';
+    this.backgroundColor = this.defaultColor;
   }
 }
