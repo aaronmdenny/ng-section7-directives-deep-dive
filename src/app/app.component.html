@@ -35,6 +35,43 @@
             {{ oddNumber }}
           </li>
         </div>
+        <!--
+          The * character is needed for Angular to know that the directive being specified is a structural directive.
+          Using the * is basically a nicer way for us to use structural directives. Behind the scenes, Angular will
+          transform these directives into something else, because there is no * in Angualr's syntax when using other
+          directives, or property binding, etc.. There is only property binding, event binding, two-way binding, and
+          string interpolation.
+
+          So, behind the scenes, Angular needs to transform this * into something where we end up with these tools
+          (property binding, etc.).
+
+          We conditionally show the odd numbers above using *ngIf.
+
+          However, we can do this differently using ng-template.
+
+          Inside of ng-template, we have the content we conditionally want to render.
+
+          ng-template is not something that is always rendered. It allows us to define a template for Angular to use
+          once it determines that this template needs to be rendered.
+
+          So, we place an ngIf without the star and use property binding with ngIf and we can see what the * is
+          transformed into:
+        -->
+        <ng-template [ngIf]="onlyOdd">
+          <div>
+            <li
+              *ngFor="let oddNumber of oddNumbers"
+              class="list-group-item"
+              [ngClass]="{
+                odd: oddNumber % 2 !== 0
+              }"
+              [ngStyle]="{
+                backgroundColor: oddNumber % 2 !== 0 ? 'yellow' : 'transparent'
+              }">
+              {{ oddNumber }}
+            </li>
+          </div>
+        </ng-template>
         <div *ngIf="!onlyOdd">
           <!--
             The usage of [ngClass] and [ngStyle] are redundant here, since we know we are dealing with even numbers, but
