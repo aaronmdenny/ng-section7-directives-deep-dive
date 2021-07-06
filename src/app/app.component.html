@@ -72,6 +72,22 @@
             </li>
           </div>
         </ng-template>
+        <!--
+          Use the 'unless' directive here.
+        -->
+        <div *appUnless="onlyOdd">
+          <li
+            *ngFor="let evenNumber of evenNumbers"
+            class="list-group-item"
+            [ngClass]="{
+              odd: evenNumber % 2 !== 0
+            }"
+            [ngStyle]="{
+              backgroundColor: evenNumber % 2 !== 0 ? 'yellow' : 'transparent'
+            }">
+            {{ evenNumber }} (unless directive)
+          </li>
+        </div>
         <div *ngIf="!onlyOdd">
           <!--
             The usage of [ngClass] and [ngStyle] are redundant here, since we know we are dealing with even numbers, but
