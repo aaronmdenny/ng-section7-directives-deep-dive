@@ -102,8 +102,13 @@ export class BetterHighlightDirective implements OnInit {
     this.backgroundColor = this.highlightColor;
   }
 
-  @HostListener('mouseleave') mouseleave(eventData: Event) {
+  /**
+   * If you want to use the event data, you must add the array containing '$event' as a second argument to
+   * @HostListener().
+   */
+  @HostListener('mouseleave', ['$event']) mouseleave(eventData: Event) {
     //this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'transparent');
     this.backgroundColor = this.defaultColor;
+    console.log(eventData);
   }
 }
